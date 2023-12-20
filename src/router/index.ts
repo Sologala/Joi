@@ -31,13 +31,6 @@ const routes = [
 				component: HistoryMatch,
 				meta: { title: "历史战绩" }
 			},
-			{ path: "setting", name: "setting", component: Setting },
-			{
-				path: "rune",
-				name: "rune",
-				component: Rune,
-				meta: { title: "符文" }
-			}
 		]
 	}
 ] as RouteRecordRaw[];
