@@ -14,10 +14,16 @@ const routes = [
 		component: IndexLayout,
 		children: [
 			{
+				path: "historyMatch/:summonerName?/:puuid?(^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}$)",
+				name: "historyMatch",
+				component: HistoryMatch,
+				meta: { title: "历史战绩" }
+			},
+			{
 				path: "",
 				name: "index",
-				component: Profile,
-				meta: { title: "主页" }
+				component: Setting,
+				meta: { title: "设置" }
 			},
 			{
 				path: "inGame/:showAnalysis?",
@@ -25,13 +31,7 @@ const routes = [
 				component: InGame,
 				meta: { title: "对局" }
 			},
-			{
-				path: "historyMatch/:summonerName?/:puuid?(^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}$)",
-				name: "historyMatch",
-				component: HistoryMatch,
-				meta: { title: "历史战绩" }
-			},
-			{ path: "setting", name: "setting", component: Setting },
+			// { path: "setting", name: "setting", component: Setting },
 			// {
 			// 	path: "rune",
 			// 	name: "rune",
