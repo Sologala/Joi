@@ -80,7 +80,7 @@ export async function initLeagueWebSocket() {
 		return;
 	}
 	credentials = await getAuthInfo();
-  if (!setting.model.lolClientPath) {
+	if (!setting.model.lolClientPath) {
 		setting.model.lolClientPath = credentials.commandLine?.replace(
 			"LeagueClient/LeagueClientUx.exe",
 			"TCLS/client.exe"

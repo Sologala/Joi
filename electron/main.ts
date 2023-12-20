@@ -94,7 +94,7 @@ export async function createWindow() {
 	win.webContents.once("did-finish-load", async () => {
 		logger.debug("webContents did-finish-load");
 		initDb();
-		startGuardTask();
+		startGuardTask(); // 和LOL客户端通信的入口
 	});
 
 	if (process.env.VITE_DEV_SERVER_URL) {
@@ -122,7 +122,7 @@ ipcMain.on("open-url", (e, args) => {
 });
 
 app.whenReady().then(() => {
-  setting.loadSetting();
+	setting.loadSetting();
 	void createWindow();
 	setupHandles();
 	if (process.env.VITE_DEV_SERVER_URL) {
