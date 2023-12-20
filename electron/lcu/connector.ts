@@ -39,13 +39,14 @@ export function startGuardTask() {
 		processChecker.stop();
 		processChecker = null;
 	}
-	processChecker = new ProcessChecker("LeagueClient.exe", 4000);
+	processChecker = new ProcessChecker("LeagueClient.exe", 4000); // 每4000ms 检查进程是否存在
 	processChecker.on("running", async () => {
 		if (!ws && !wsIsConnecting) {
 			wsIsConnecting = true;
 			//等待1.5s检测下进程再尝试连接，因为lcu客户端退出先关闭ws连接，但是进程还未推出
 			await new Promise((resolve) => setTimeout(resolve, 1500));
 			if (!(await checkProcessExistByName("LeagueClient.exe"))) {
+				// 再次使用进程名称检查
 				wsIsConnecting = false;
 				return;
 			}
