@@ -11,7 +11,8 @@ const route = useRoute();
 <template>
 	<div class="flex flex-col h-screen">
 		<HeaderBar></HeaderBar>
-		<Nav v-show="route.name !== 'setting'"></Nav>
+		<!-- <Nav v-show="route.name !== 'setting'"></Nav> -->
+		<Nav></Nav>
 		<router-view v-slot="{ Component }">
 			<transition-slide :offset="[-16, 0]" mode="out-in">
 				<keep-alive>

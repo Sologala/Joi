@@ -68,7 +68,7 @@ if (!app.requestSingleInstanceLock()) {
 export async function createWindow() {
 	win = new BrowserWindowAdapter({
 		width: 800,
-		height: 600,
+		height: 1000,
 		webPreferences: {
 			nodeIntegration: true,
 			preload: path.join(__dirname, "./preload.js")

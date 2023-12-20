@@ -36,7 +36,7 @@ type PageSizeOptions = (typeof pageSizeOptions)[number];
 const pageObj = reactive([
 	{
 		page: 1,
-		pageSize: 8
+		pageSize: 10
 	}
 ]) as ReactiveVariable<Array<{ page: number; pageSize: PageSizeOptions }>>;
 //当前页数
