@@ -74,7 +74,7 @@ export async function createWindow() {
 			preload: path.join(__dirname, "./preload.js")
 		},
 		titleBarStyle: "hidden",
-		resizable: false,
+		resizable: true,
 		maximizable: false,
 		fullscreenable: false,
 		//transparent:true,
