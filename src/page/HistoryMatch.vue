@@ -31,7 +31,7 @@ const enterClass = [
 const pageLeaveClass = ref("");
 const pageEnterClass = ref("");
 
-const pageSizeOptions = [8, 20, 30] as const;
+const pageSizeOptions = [10, 20, 30] as const;
 type PageSizeOptions = (typeof pageSizeOptions)[number];
 const pageObj = reactive([
 	{
