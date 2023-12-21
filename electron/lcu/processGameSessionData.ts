@@ -43,10 +43,11 @@ export async function processGameSessionData(data: ChampSelectPhaseSession, game
 	//获取当前活动
 
 	const action = getCurrentAction(data);
+	logger.info("currentAction is ", JSON.stringify(action));
 	if (action && actionId !== action.id) {
 		actionId = action.id; // 防止重复接收活动事件
-		logger.info("currentAction", JSON.stringify(action));
 		//todo 自动选择英雄 自动ban英雄
+
 		let local_player_id = data.localPlayerCellId
 		logger.info("current actor id", local_player_id, " current session actor id ", action.actorCellId);
 		if (action.actorCellId == local_player_id && action.isInProgress) {
@@ -65,10 +66,10 @@ export async function processGameSessionData(data: ChampSelectPhaseSession, game
 
 			setTimeout(async () => {
 				try {
-					if (action.type === 'ban') {
+					if (action.type === 'ban' && setting.model.autoBan) {
 						banPickChampion(action, setting.model.autoBanID, true, action.type)
 					}
-					else if (action.type === 'pick') {
+					else if (action.type === 'pick' && setting.model.autoPick) {
 						banPickChampion(action, setting.model.autoPickID, true, action.type)
 					}
 				} catch (e) {
@@ -76,6 +77,15 @@ export async function processGameSessionData(data: ChampSelectPhaseSession, game
 				}
 			}, setTime);
 
+		}
+		else if (action.actorCellId != local_player_id && gameMode == "rank" && action.isInProgress) {
+			setTimeout(async () => {
+				try {
+					banPickChampion(action, setting.model.autoPickID, false, "pick")
+				} catch (e) {
+					logger.error(e);
+				}
+			}, 5);
 		}
 	}
 

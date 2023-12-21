@@ -70,7 +70,7 @@ function onAutoPickchampIDChanged(value: any) {
 					<h2 class="text-sm pt-2 font-bold">自动Pick：</h2>
 					<div class="banpick">
 						<n-switch v-model:value="settingModel.autoPick"></n-switch>
-						<div> [{{ champDict[settingModel.autoPickID].label }}]</div>
+						<div v-if="settingModel.autoPickID"> [{{ champDict[settingModel.autoPickID].label }}]</div>
 						<ChampionSelect @update:model-value="onAutoPickchampIDChanged"> </ChampionSelect>
 						<n-slider :max="9000" :format-tooltip="(s: string) => `${s}ms`"
 							v-model:value="settingModel.autoPIckDelay">
@@ -79,7 +79,8 @@ function onAutoPickchampIDChanged(value: any) {
 					<h2 class="text-sm pt-2 font-bold">自动Ban：</h2>
 					<div class="banpick">
 						<n-switch v-model:value="settingModel.autoBan"></n-switch>
-						<div> [{{ champDict[settingModel.autoBanID].label }}]</div>
+						<div v-if="settingModel.autoBanID"> [{{ champDict[settingModel.autoBanID].label
+						}}] </div>
 						<ChampionSelect @update:model-value="onAutoBanchampIDChanged"> </ChampionSelect>
 						<n-slider :max="9000" :format-tooltip="(s: string) => `${s}ms`"
 							v-model:value="settingModel.autoBanDelay">
