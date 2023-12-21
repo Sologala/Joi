@@ -4,7 +4,7 @@ export function setupTitleBarHandler(win: BrowserWindow) {
 	ipcMain.handle("titleBarControl:minimize", (event, args) => {
 		win.minimize();
 	});
-	ipcMain.handle("titleBarControl:setting", (event, args) => {});
+	// ipcMain.handle("titleBarControl:setting", (event, args) => {});
 	ipcMain.handle("titleBarControl:close", (event, type: string) => {
 		if (type === "hide") {
 			win.hide();

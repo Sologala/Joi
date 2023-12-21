@@ -43,7 +43,7 @@ export function handelAutoAcceptGame(eventKey: string) {
 
 let unListenChampSelect: Function | null;
 
-//选择英雄
+//选择英雄逻辑
 export async function handelChampSelect(eventKey: string) {
 	if (eventKey !== "ChampSelect") {
 		return;

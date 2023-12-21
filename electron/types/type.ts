@@ -7,6 +7,13 @@ export const settingModelDefault = {
 	exitDirectly: false, //点击关闭时直接退出
 	autoAccept: true, //自动接收对局
 	autoAcceptDelay: 0, //自动接收对局延迟
+	autoPick: true, //自动接收对局
+	autoPIckDelay: 0, //自动BanPIck延迟
+	autoPickID: 0, //自动BanPickID
+	autoBan: true, //自动接收对局
+	autoBanDelay: 0, //自动BanPIck延迟
+	autoBanID: 0, //自动BanPickID
+
 	autoConfigRune: false, //自动配置符文
 	autoConfigRuneOPGGPriority: false, //自动配置符文优先使用opgg
 	autoSendMyTeamAnalysis: false, // 自动发送我方队伍分析数据到聊天室

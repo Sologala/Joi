@@ -49,7 +49,7 @@ const handleCloseConfirm = async () => {
 
 const leaveWait = ref<{ wait: Promise<void>; done: Function }>({
 	wait: Promise.resolve(),
-	done: () => {}
+	done: () => { }
 });
 
 function initWait() {
@@ -72,9 +72,6 @@ const afterLeave = () => {
 				<div id="minimize" @click="minimizeHandler">
 					<Subtract16Regular />
 				</div>
-				<div id="setting" @click="settingHandler">
-					<Settings16Regular />
-				</div>
 				<div id="close" @click="closeHandler">
 					<Dismiss16Regular />
 				</div>
@@ -82,11 +79,7 @@ const afterLeave = () => {
 		</div>
 	</div>
 	<Teleport to="body">
-		<n-modal
-			v-model:show="showModal"
-			transform-origin="center"
-			:auto-focus="false"
-			display-directive="show"
+		<n-modal v-model:show="showModal" transform-origin="center" :auto-focus="false" display-directive="show"
 			:on-after-leave="afterLeave">
 			<n-card style="width: 400px" class="closeAskDialog" title="关闭提示" aria-modal="true">
 				<div>
@@ -142,7 +135,7 @@ const afterLeave = () => {
 	background-color: rgba(255, 0, 0, 0.45);
 }
 
-.controls > div {
+.controls>div {
 	-webkit-app-region: no-drag;
 	transition: 0.2s ease-in-out background-color;
 }

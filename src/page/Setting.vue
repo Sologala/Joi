@@ -6,6 +6,8 @@ import { checkUpdate } from "@/utils/updateCheck";
 import commonApi from "@/api/commonApi";
 import useAppStore from "@/store/app";
 import { Handle } from "@@/const/const";
+import { champDict } from "@@/const/lolDataConfig";
+import ChampionSelect from "@/components/ChampionSelect.vue";
 
 const router = useRouter();
 
@@ -38,6 +40,14 @@ function setLOLClientPath() {
 		}
 	});
 }
+
+const picked_id = ref(0)
+function onAutoBanchampIDChanged(value: any) {
+	settingModel.value.autoBanID = value
+}
+function onAutoPickchampIDChanged(value: any) {
+	settingModel.value.autoPickID = value
+}
 </script>
 
 <template>
@@ -49,8 +59,6 @@ function setLOLClientPath() {
 					<div class="py-[10px]">
 						<n-switch v-model:value="settingModel.autoAccept"></n-switch>
 					</div>
-
-					<h2 class="text-sm pt-2 font-bold">自动接收对局延时：</h2>
 					<div class="flex flex-row flex-nowrap items-center py-[10px]">
 						<div style="line-height: 20px; height: 26px; padding-right: 10px">
 							{{ settingModel.autoAcceptDelay }}ms
@@ -59,6 +67,24 @@ function setLOLClientPath() {
 							v-model:value="settingModel.autoAcceptDelay"></n-slider>
 					</div>
 
+					<h2 class="text-sm pt-2 font-bold">自动Pick：</h2>
+					<div class="banpick">
+						<n-switch v-model:value="settingModel.autoPick"></n-switch>
+						<div> [{{ champDict[settingModel.autoPickID].label }}]</div>
+						<ChampionSelect @update:model-value="onAutoPickchampIDChanged"> </ChampionSelect>
+						<n-slider :max="9000" :format-tooltip="(s: string) => `${s}ms`"
+							v-model:value="settingModel.autoPIckDelay">
+						</n-slider>
+					</div>
+					<h2 class="text-sm pt-2 font-bold">自动Ban：</h2>
+					<div class="banpick">
+						<n-switch v-model:value="settingModel.autoBan"></n-switch>
+						<div> [{{ champDict[settingModel.autoBanID].label }}]</div>
+						<ChampionSelect @update:model-value="onAutoBanchampIDChanged"> </ChampionSelect>
+						<n-slider :max="9000" :format-tooltip="(s: string) => `${s}ms`"
+							v-model:value="settingModel.autoBanDelay">
+						</n-slider>
+					</div>
 					<h2 class="text-sm pt-2 font-bold">自动应用符文：</h2>
 					<div class="py-[10px]">
 						<n-switch v-model:value="settingModel.autoConfigRune"></n-switch>
@@ -142,5 +168,11 @@ function setLOLClientPath() {
 
 .setting-group {
 	padding: 12px;
+}
+
+.banpick {
+	display: flex;
+	grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+	gap: 20px;
 }
 </style>

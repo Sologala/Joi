@@ -121,7 +121,7 @@ export async function applyRune(data: RuneConfig) {
 //ban pick 英雄
 export const banPickChampion = async (action: Action, champId: number, completed: boolean, type: "ban" | "pick") => {
 	return await httpRequest({
-		method: "POST",
+		method: "PATCH",
 		url: `lol-champ-select/v1/session/actions/${action.id}`,
 		body: {
 			actorCellId: action.actorCellId,
@@ -131,7 +131,10 @@ export const banPickChampion = async (action: Action, champId: number, completed
 			isAllyAction: true,
 			type: type
 		}
-	});
+	}).catch((e: any) => {
+		logger.error("bnpic error", e.message);
+		throw e;
+	});;
 };
 
 //获取聊天会话
@@ -276,8 +279,8 @@ export const getRankSummary = async (puuid: string) => {
 
 //重启界面
 export const restartUX = async () => {
-  return await httpRequest<void>({
-    method: "POST",
-    url: "/riotclient/kill-and-restart-ux"
-  });
+	return await httpRequest<void>({
+		method: "POST",
+		url: "/riotclient/kill-and-restart-ux"
+	});
 };

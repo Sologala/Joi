@@ -4,7 +4,8 @@ import { GameMode } from "../types/opgg_rank_type";
 import { sendToWebContent } from "../util/util";
 import { Handle } from "../const/const";
 import logger from "../lib/logger";
-import { getCurrentChampId, getSummonerByPuuid } from "./lcuRequest";
+import { banPickChampion, getCurrentChampId, getSummonerByPuuid } from "./lcuRequest";
+import { setting } from "../config/";
 
 let champId = 0;
 let actionId: number | null;
@@ -40,11 +41,42 @@ export async function processGameSessionData(data: ChampSelectPhaseSession, game
 	}
 
 	//获取当前活动
+
 	const action = getCurrentAction(data);
 	if (action && actionId !== action.id) {
 		actionId = action.id; // 防止重复接收活动事件
 		logger.info("currentAction", JSON.stringify(action));
 		//todo 自动选择英雄 自动ban英雄
+		let local_player_id = data.localPlayerCellId
+		logger.info("current actor id", local_player_id, " current session actor id ", action.actorCellId);
+		if (action.actorCellId == local_player_id && action.isInProgress) {
+			logger.info("my turn to ", action.type);
+
+			let setTime = 0;
+			if (action.type === 'ban') {
+				setTime = setting.model.autoBanDelay;
+			}
+			else if (action.type === 'pick') {
+				setTime = setting.model.autoPIckDelay;
+			}
+			else {
+				return;
+			}
+
+			setTimeout(async () => {
+				try {
+					if (action.type === 'ban') {
+						banPickChampion(action, setting.model.autoBanID, true, action.type)
+					}
+					else if (action.type === 'pick') {
+						banPickChampion(action, setting.model.autoPickID, true, action.type)
+					}
+				} catch (e) {
+					logger.error(e);
+				}
+			}, setTime);
+
+		}
 	}
 
 	//获取当前锁定的英雄
