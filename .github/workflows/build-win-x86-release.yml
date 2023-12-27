@@ -1,5 +1,6 @@
 name: build-win-x86-release
 run-name: ${{ github.actor }} is learning GitHub Actions
+on: workflow_dispatch
 jobs:
   build:
     runs-on: windows-latest
