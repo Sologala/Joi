@@ -9,6 +9,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
+      - run: node-gyp configure --msvs_version=2022
       - run: npm install
       - run: npm run rebuild
       - run: npm run build
